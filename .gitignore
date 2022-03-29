@@ -1,3 +1,4 @@
+.history
 # dependencies
 node_modules
 .yarn/*

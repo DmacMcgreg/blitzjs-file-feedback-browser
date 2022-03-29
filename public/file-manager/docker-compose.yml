@@ -1,0 +1,7 @@
+version: "3"
+services:
+    web:
+        build: .
+        image: registry.webix.io/demo-file-manager
+        ports:
+            - "8080:8080"

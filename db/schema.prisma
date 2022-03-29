@@ -21,8 +21,10 @@ model User {
   hashedPassword String?
   role           String   @default("USER")
 
-  tokens   Token[]
-  sessions Session[]
+  tokens        Token[]
+  feedbacks     Feedback[]
+  sessions      Session[]
+  feedback_like Feedback_like[]
 }
 
 model Session {
@@ -63,3 +65,32 @@ model Token {
 // enum TokenType {
 //   RESET_PASSWORD
 // }
+
+model Feedback {
+  id             Int             @id @default(autoincrement())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  title          String
+  userId         Int
+  text           String
+  admin_approved Boolean         @default(false)
+  user           User?           @relation(fields: [userId], references: [id])
+  feedbackLikes  Feedback_like[]
+}
+
+model Feedback_like {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  feedbackId Int
+  userId     Int
+
+  user     User?     @relation(fields: [userId], references: [id])
+  feedback Feedback? @relation(fields: [feedbackId], references: [id])
+}
+
+model File {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
